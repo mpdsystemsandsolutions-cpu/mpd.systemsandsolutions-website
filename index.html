@@ -9,9 +9,23 @@
 <body>
     <header>
         <h1>Willkommen bei MPD Systems and Solutions</h1>
-        <p>Deine professionelle Website</p>
+        <p>Arduino + ESP32 Daten Live 🔴</p>
     </header>
     <main>
+        <section>
+            <h2>Sensor Daten</h2>
+            <div class="sensor-data">
+                <p><strong>Temperatur:</strong> <span id="temp" style="color: #00d4aa; font-weight: bold;">--</span>°C</p>
+                <p><strong>Status:</strong> <span id="status" style="color: #ff6b6b;">🔴 Verbindung wird gesucht...</span></p>
+                <p><strong>Letzte Aktualisierung:</strong> <span id="lastUpdate">-</span></p>
+            </div>
+        </section>
+        <section>
+            <h2>Alle Messwerte</h2>
+            <div id="dataLog" style="background: #f0f0f0; padding: 1rem; border-radius: 5px; max-height: 300px; overflow-y: auto; font-family: monospace;">
+                <p style="color: #999;">Warte auf Daten...</p>
+            </div>
+        </section>
         <section>
             <h2>Über uns</h2>
             <p>MPD Systems and Solutions bietet innovative Lösungen für deine Anforderungen.</p>
@@ -28,5 +42,45 @@
     <footer>
         <p>&copy; 2026 MPD Systems and Solutions</p>
     </footer>
+    
+    <script>
+        let dataCount = 0;
+        
+        // Aktualisiert Daten alle 3 Sekunden
+        setInterval(async () => {
+            try {
+                const response = await fetch('/api/data');
+                const data = await response.json();
+                
+                if (data.sensor_data) {
+                    document.getElementById('temp').textContent = data.sensor_data;
+                    document.getElementById('status').innerHTML = '🟢 Verbunden';
+                    document.getElementById('status').style.color = '#00d4aa';
+                    document.getElementById('lastUpdate').textContent = new Date().toLocaleTimeString();
+                    
+                    // Zu Log hinzufügen
+                    const log = document.getElementById('dataLog');
+                    dataCount++;
+                    const newEntry = document.createElement('p');
+                    newEntry.textContent = `[${new Date().toLocaleTimeString()}] ${dataCount}. ${data.sensor_data}`;
+                    newEntry.style.borderBottom = '1px solid #ddd';
+                    newEntry.style.padding = '0.5rem 0';
+                    newEntry.style.margin = '0';
+                    log.appendChild(newEntry);
+                    
+                    // Scrollen zum neuesten Eintrag
+                    log.scrollTop = log.scrollHeight;
+                    
+                    // Maximal 50 Einträge anzeigen
+                    if (dataCount > 50) {
+                        log.firstChild.remove();
+                    }
+                }
+            } catch(error) {
+                document.getElementById('status').innerHTML = '🔴 Keine Verbindung';
+                document.getElementById('status').style.color = '#ff6b6b';
+            }
+        }, 3000);
+    </script>
 </body>
 </html>

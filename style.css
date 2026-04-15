@@ -8,24 +8,27 @@ body {
     font-family: 'Arial', sans-serif;
     line-height: 1.6;
     color: #333;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #00d4aa 0%, #00a878 100%);
     min-height: 100vh;
 }
 
 header {
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 50, 40, 0.9);
     color: white;
     padding: 2rem;
     text-align: center;
+    border-bottom: 4px solid #00d4aa;
 }
 
 header h1 {
     font-size: 2.5rem;
     margin-bottom: 0.5rem;
+    color: #00ffcc;
 }
 
 header p {
     font-size: 1.2rem;
+    color: #b0f0e0;
 }
 
 main {
@@ -35,6 +38,7 @@ main {
     background: white;
     border-radius: 10px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border-left: 5px solid #00d4aa;
 }
 
 section {
@@ -42,13 +46,16 @@ section {
 }
 
 section h2 {
-    color: #667eea;
+    color: #00a878;
     margin-bottom: 1rem;
     font-size: 1.8rem;
+    border-bottom: 2px solid #00d4aa;
+    padding-bottom: 0.5rem;
 }
 
 section p {
     margin-bottom: 1rem;
+    color: #333;
 }
 
 ul {
@@ -57,12 +64,15 @@ ul {
 
 li {
     margin-bottom: 0.5rem;
+    color: #00a878;
+    font-weight: 500;
 }
 
 footer {
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 50, 40, 0.9);
     color: white;
     text-align: center;
     padding: 1rem;
     margin-top: 2rem;
+    border-top: 4px solid #00d4aa;
 }
